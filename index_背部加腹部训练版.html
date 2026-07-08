@@ -1,0 +1,1902 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <title>我的训练记录</title>
+  <style>
+    :root {
+      --bg: #f3f4f6;
+      --card: #ffffff;
+      --text: #111827;
+      --sub: #6b7280;
+      --line: #e5e7eb;
+      --dark: #111827;
+      --green: #16a34a;
+      --green-bg: #dcfce7;
+      --gold: #9a6700;
+      --gold-bg: #fff7d6;
+      --blue: #1d4ed8;
+      --blue-bg: #dbeafe;
+      --red: #dc2626;
+      --shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                   "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    button, input, textarea { font: inherit; }
+    button { -webkit-tap-highlight-color: transparent; }
+
+    .app {
+      width: min(780px, 100%);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: max(20px, env(safe-area-inset-top)) 16px
+               max(32px, env(safe-area-inset-bottom));
+    }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .header { margin: 10px 2px 26px; }
+    .header h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 7vw, 38px);
+      letter-spacing: -0.04em;
+    }
+    .header p {
+      margin: 0;
+      color: var(--sub);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .part-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .part-btn {
+      min-height: 145px;
+      border: 0;
+      border-radius: 22px;
+      padding: 20px;
+      background: var(--card);
+      color: var(--text);
+      box-shadow: var(--shadow);
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .part-btn:active { transform: scale(0.98); }
+    .part-btn .icon {
+      display: block;
+      margin-bottom: 24px;
+      font-size: 34px;
+    }
+    .part-btn .name {
+      display: block;
+      font-size: 23px;
+      font-weight: 800;
+    }
+    .part-btn .state {
+      display: block;
+      margin-top: 7px;
+      color: var(--sub);
+      font-size: 13px;
+    }
+    .part-btn.available {
+      background: var(--dark);
+      color: white;
+    }
+    .part-btn.available .state { color: #cbd5e1; }
+    .part-btn.disabled {
+      cursor: default;
+      color: #6b7280;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 4px 0 16px;
+    }
+
+    .icon-btn {
+      width: 44px;
+      height: 44px;
+      flex: 0 0 44px;
+      border: 0;
+      border-radius: 14px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      font-size: 21px;
+    }
+
+    .title-wrap { flex: 1; min-width: 0; }
+    .title-wrap h2 {
+      margin: 0;
+      font-size: 26px;
+    }
+    .title-wrap p {
+      margin: 4px 0 0;
+      overflow: hidden;
+      color: var(--sub);
+      font-size: 13px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 5px;
+      border-radius: 16px;
+      background: #e5e7eb;
+    }
+    .tab-btn,
+    .abs-tab-btn {
+      height: 42px;
+      border: 0;
+      border-radius: 12px;
+      background: transparent;
+      color: var(--sub);
+      cursor: pointer;
+      font-weight: 800;
+    }
+    .tab-btn.active,
+    .abs-tab-btn.active {
+      background: white;
+      color: var(--text);
+      box-shadow: 0 4px 12px rgba(17, 24, 39, 0.08);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .summary {
+      margin-bottom: 16px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: var(--dark);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+    .summary-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .summary strong { font-size: 16px; }
+    .summary span {
+      color: #cbd5e1;
+      font-size: 13px;
+    }
+    .progress-track {
+      height: 8px;
+      margin-top: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #374151;
+    }
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: white;
+      transition: width 0.25s ease;
+    }
+
+    .exercise-card {
+      margin-bottom: 16px;
+      overflow: hidden;
+      border-radius: 22px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .exercise-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .exercise-head h3 {
+      margin: 0;
+      font-size: 19px;
+    }
+    .exercise-head p {
+      margin: 5px 0 0;
+      color: var(--sub);
+      font-size: 13px;
+    }
+
+    .badge {
+      flex: 0 0 auto;
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: #f3f4f6;
+      color: var(--sub);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .badge.done {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+    .set-row {
+      display: grid;
+      grid-template-columns: 54px minmax(82px, 0.8fr) 1.8fr;
+      gap: 10px;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .set-row.sided {
+      grid-template-columns: 54px minmax(68px, 0.7fr) minmax(68px, 0.7fr) 1.5fr;
+    }
+    .set-label {
+      font-size: 14px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .field { position: relative; }
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      outline: none;
+      background: #f9fafb;
+      color: var(--text);
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .field input {
+      height: 44px;
+      padding: 0 34px 0 8px;
+      text-align: center;
+      font-weight: 800;
+    }
+    .field textarea {
+      min-height: 44px;
+      max-height: 110px;
+      padding: 11px 12px;
+      resize: vertical;
+      line-height: 1.4;
+    }
+    .field input:focus,
+    .field textarea:focus {
+      border-color: #9ca3af;
+      background: white;
+    }
+    .field input:disabled,
+    .field textarea:disabled {
+      opacity: 1;
+      background: #f3f4f6;
+      color: #4b5563;
+      -webkit-text-fill-color: #4b5563;
+    }
+    .unit {
+      position: absolute;
+      top: 50%;
+      right: 9px;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: var(--sub);
+      font-size: 11px;
+    }
+
+    .exercise-result {
+      display: none;
+      margin: 14px 16px 16px;
+      padding: 13px 14px;
+      border-radius: 14px;
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 700;
+    }
+    .exercise-result.show { display: block; }
+    .exercise-result.pr {
+      background: var(--gold-bg);
+      color: var(--gold);
+    }
+    .exercise-result.normal {
+      background: var(--blue-bg);
+      color: var(--blue);
+    }
+    .exercise-result.first {
+      background: var(--green-bg);
+      color: #166534;
+    }
+    .exercise-result .small {
+      display: block;
+      margin-top: 3px;
+      font-size: 12px;
+      font-weight: 600;
+      opacity: .85;
+    }
+
+    .finish-card {
+      display: none;
+      margin-top: 20px;
+      padding: 24px 20px;
+      border-radius: 22px;
+      background: var(--green-bg);
+      color: #14532d;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .finish-card.show {
+      display: block;
+      animation: pop 0.35s ease;
+    }
+    .finish-card .check { font-size: 38px; }
+    .finish-card h3 {
+      margin: 8px 0 5px;
+      font-size: 22px;
+    }
+    .finish-card p {
+      margin: 0 0 16px;
+      font-size: 14px;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      width: 100%;
+      min-height: 48px;
+      border: 0;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+    .primary-btn {
+      background: var(--dark);
+      color: white;
+    }
+    .secondary-btn {
+      background: white;
+      color: var(--text);
+      box-shadow: var(--shadow);
+    }
+    .secondary-btn:disabled {
+      cursor: default;
+      opacity: .45;
+    }
+
+    .subtle-wrap {
+      padding-top: 16px;
+      text-align: center;
+    }
+    .text-btn {
+      border: 0;
+      background: transparent;
+      color: var(--sub);
+      cursor: pointer;
+      font-size: 13px;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .text-btn.danger { color: var(--red); }
+
+    .history-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .history-empty {
+      padding: 42px 20px;
+      border-radius: 22px;
+      background: white;
+      color: var(--sub);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .history-card {
+      margin-bottom: 14px;
+      overflow: hidden;
+      border-radius: 20px;
+      background: white;
+      box-shadow: var(--shadow);
+    }
+    .history-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 17px;
+      border-bottom: 1px solid var(--line);
+    }
+    .history-date {
+      font-size: 16px;
+      font-weight: 900;
+    }
+    .history-time {
+      margin-top: 4px;
+      color: var(--sub);
+      font-size: 12px;
+    }
+    .history-number {
+      color: var(--sub);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .history-exercise {
+      padding: 13px 17px;
+      border-bottom: 1px solid var(--line);
+    }
+    .history-exercise:last-child { border-bottom: 0; }
+    .history-exercise-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .history-exercise strong { font-size: 14px; }
+    .total {
+      font-size: 14px;
+      font-weight: 900;
+    }
+    .pr-pill {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: var(--gold-bg);
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 900;
+      vertical-align: 1px;
+    }
+    .sets-text {
+      margin-top: 7px;
+      color: var(--sub);
+      font-size: 12px;
+      line-height: 1.55;
+      word-break: break-word;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(24px + env(safe-area-inset-bottom));
+      z-index: 120;
+      transform: translate(-50%, 20px);
+      padding: 10px 15px;
+      border-radius: 999px;
+      background: rgba(17, 24, 39, 0.92);
+      color: white;
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @keyframes pop {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @media (max-width: 590px) {
+      .part-grid { gap: 12px; }
+      .part-btn {
+        min-height: 130px;
+        padding: 17px;
+      }
+      .part-btn .icon { margin-bottom: 18px; }
+
+      .set-row {
+        grid-template-columns: 46px 82px minmax(0, 1fr);
+        gap: 8px;
+        padding: 11px 11px;
+      }
+      .set-row.sided {
+        grid-template-columns: 44px 66px 66px minmax(0, 1fr);
+        gap: 6px;
+      }
+      .field input {
+        padding-left: 5px;
+        padding-right: 27px;
+      }
+      .unit {
+        right: 6px;
+        font-size: 10px;
+      }
+      .field textarea {
+        padding-left: 9px;
+        padding-right: 9px;
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .set-row.sided {
+        grid-template-columns: 40px 61px 61px minmax(0, 1fr);
+      }
+      .set-label { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section id="homePage" class="page active">
+      <div class="header">
+        <h1>我的训练</h1>
+        <p>选择今天要训练的部位</p>
+      </div>
+
+      <div class="part-grid">
+        <button class="part-btn disabled" type="button" aria-disabled="true">
+          <span class="icon">🏋️</span>
+          <span class="name">胸</span>
+          <span class="state">待添加</span>
+        </button>
+
+        <button class="part-btn disabled" type="button" aria-disabled="true">
+          <span class="icon">💪</span>
+          <span class="name">肩</span>
+          <span class="state">待添加</span>
+        </button>
+
+        <button id="openBack" class="part-btn available" type="button">
+          <span class="icon">🔥</span>
+          <span class="name">背</span>
+          <span id="backState" class="state">进入训练</span>
+        </button>
+
+        <button id="openAbs" class="part-btn available" type="button">
+          <span class="icon">⚡</span>
+          <span class="name">腹</span>
+          <span id="absState" class="state">进入训练</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="backPage" class="page">
+      <div class="topbar">
+        <button id="goHome" class="icon-btn" type="button" aria-label="返回">←</button>
+        <div class="title-wrap">
+          <h2>背部训练</h2>
+          <p id="sessionDate">本次记录会自动保存</p>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="current" type="button">本次训练</button>
+        <button class="tab-btn" data-tab="history" type="button">历史记录</button>
+      </div>
+
+      <section id="currentPanel" class="tab-panel active">
+        <div class="summary">
+          <div class="summary-row">
+            <strong id="progressText">已完成 0 / 12 组</strong>
+            <span id="saveText">自动保存</span>
+          </div>
+          <div class="progress-track">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+        </div>
+
+        <div id="exerciseList"></div>
+
+        <div id="finishCard" class="finish-card">
+          <div class="check">✓</div>
+          <h3>背部训练完成</h3>
+          <p>三个动作都已完成，本次训练已经保存到历史记录。</p>
+          <button id="newSessionBtn" class="primary-btn" type="button">开始下一次背部训练</button>
+        </div>
+
+        <div id="resetWrap" class="subtle-wrap">
+          <button id="resetBtn" class="text-btn" type="button">清空本次尚未完成的记录</button>
+        </div>
+      </section>
+
+      <section id="historyPanel" class="tab-panel">
+        <div class="history-actions">
+          <button id="exportCsvBtn" class="secondary-btn" type="button">导出全部历史记录 CSV</button>
+        </div>
+
+        <div id="historyList"></div>
+
+        <div id="clearHistoryWrap" class="subtle-wrap">
+          <button id="clearHistoryBtn" class="text-btn danger" type="button">清空全部历史记录</button>
+        </div>
+      </section>
+    </section>
+
+
+    <section id="absPage" class="page">
+      <div class="topbar">
+        <button id="absGoHome" class="icon-btn" type="button" aria-label="返回">←</button>
+        <div class="title-wrap">
+          <h2>腹部训练</h2>
+          <p id="absSessionDate">本次记录会自动保存</p>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <button class="abs-tab-btn active" data-abs-tab="current" type="button">本次训练</button>
+        <button class="abs-tab-btn" data-abs-tab="history" type="button">历史记录</button>
+      </div>
+
+      <section id="absCurrentPanel" class="tab-panel active">
+        <div class="summary">
+          <div class="summary-row">
+            <strong id="absProgressText">已完成 0 / 10 组</strong>
+            <span id="absSaveText">自动保存</span>
+          </div>
+          <div class="progress-track">
+            <div id="absProgressBar" class="progress-bar"></div>
+          </div>
+        </div>
+
+        <div id="absExerciseList"></div>
+
+        <div id="absFinishCard" class="finish-card">
+          <div class="check">✓</div>
+          <h3>腹部训练完成</h3>
+          <p>两个动作都已完成，本次训练已经保存到历史记录。</p>
+          <button id="absNewSessionBtn" class="primary-btn" type="button">开始下一次腹部训练</button>
+        </div>
+
+        <div id="absResetWrap" class="subtle-wrap">
+          <button id="absResetBtn" class="text-btn" type="button">清空本次尚未完成的记录</button>
+        </div>
+      </section>
+
+      <section id="absHistoryPanel" class="tab-panel">
+        <div class="history-actions">
+          <button id="absExportCsvBtn" class="secondary-btn" type="button">导出全部腹部历史记录 CSV</button>
+        </div>
+
+        <div id="absHistoryList"></div>
+
+        <div id="absClearHistoryWrap" class="subtle-wrap">
+          <button id="absClearHistoryBtn" class="text-btn danger" type="button">清空全部腹部历史记录</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div id="toast" class="toast">已自动保存</div>
+
+  <script>
+    const EXERCISES = [
+      {
+        id: "pullup",
+        name: "引体向上",
+        detail: "自重",
+        weight: "自重",
+        mode: "normal"
+      },
+      {
+        id: "latPulldown",
+        name: "高位下拉",
+        detail: "固定重量：70 kg",
+        weight: "70 kg",
+        mode: "normal"
+      },
+      {
+        id: "cableRow",
+        name: "龙门架单边背拉",
+        detail: "固定重量：27.5 kg｜左右手分别记录",
+        weight: "27.5 kg",
+        mode: "sided"
+      }
+    ];
+
+    const HISTORY_KEY = "backWorkoutHistoryV2";
+    const DRAFT_KEY = "backWorkoutDraftV2";
+    const LEGACY_KEY = "backWorkoutRecordV1";
+
+    const homePage = document.getElementById("homePage");
+    const backPage = document.getElementById("backPage");
+    const exerciseList = document.getElementById("exerciseList");
+    const historyList = document.getElementById("historyList");
+    const progressText = document.getElementById("progressText");
+    const progressBar = document.getElementById("progressBar");
+    const finishCard = document.getElementById("finishCard");
+    const resetWrap = document.getElementById("resetWrap");
+    const saveText = document.getElementById("saveText");
+    const sessionDate = document.getElementById("sessionDate");
+    const toast = document.getElementById("toast");
+    const backState = document.getElementById("backState");
+    const exportCsvBtn = document.getElementById("exportCsvBtn");
+
+    let currentDraft = null;
+    let saveTimer = null;
+    let toastTimer = null;
+    let finalizing = false;
+
+    function nowIso() {
+      return new Date().toISOString();
+    }
+
+    function formatDateTime(iso) {
+      const date = new Date(iso);
+
+      const dateText = new Intl.DateTimeFormat("zh-CN", {
+        timeZone: "Asia/Tokyo",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        weekday: "short"
+      }).format(date);
+
+      const timeText = new Intl.DateTimeFormat("zh-CN", {
+        timeZone: "Asia/Tokyo",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+      }).format(date);
+
+      return { dateText, timeText };
+    }
+
+    function fileDate(iso) {
+      const date = new Date(iso);
+      const formatter = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Tokyo",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      });
+      return formatter.format(date);
+    }
+
+    function newSession() {
+      const exercises = {};
+
+      EXERCISES.forEach(exercise => {
+        exercises[exercise.id] = Array.from({ length: 4 }, () => {
+          if (exercise.mode === "sided") {
+            return { left: "", right: "", comment: "" };
+          }
+          return { reps: "", comment: "" };
+        });
+      });
+
+      return {
+        id: "back-" + Date.now() + "-" + Math.random().toString(16).slice(2),
+        startedAt: nowIso(),
+        completedAt: null,
+        exercises,
+        totals: {},
+        prFlags: {}
+      };
+    }
+
+    function loadHistory() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveHistory(history) {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+    }
+
+    function loadDraft() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null");
+        return parsed && parsed.exercises ? parsed : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function saveDraft() {
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(currentDraft));
+      saveText.textContent = currentDraft.completedAt ? "已存入历史" : "已自动保存";
+      updateHomeState();
+    }
+
+    function migrateLegacyIfNeeded() {
+      if (localStorage.getItem(DRAFT_KEY)) return;
+
+      try {
+        const legacy = JSON.parse(localStorage.getItem(LEGACY_KEY) || "null");
+        if (!legacy) return;
+
+        const migrated = newSession();
+
+        ["pullup", "latPulldown", "cableRow"].forEach(id => {
+          if (!Array.isArray(legacy[id])) return;
+
+          legacy[id].forEach((set, index) => {
+            if (!migrated.exercises[id][index]) return;
+
+            if (id === "cableRow") {
+              migrated.exercises[id][index].left = set.reps || "";
+              migrated.exercises[id][index].right = set.reps || "";
+              migrated.exercises[id][index].comment = set.comment || "";
+            } else {
+              migrated.exercises[id][index].reps = set.reps || "";
+              migrated.exercises[id][index].comment = set.comment || "";
+            }
+          });
+        });
+
+        currentDraft = migrated;
+        saveDraft();
+      } catch {
+        // 忽略旧数据读取失败
+      }
+    }
+
+    function createExerciseCards() {
+      exerciseList.innerHTML = EXERCISES.map((exercise, exerciseIndex) => {
+        const rows = Array.from({ length: 4 }, (_, setIndex) => {
+          if (exercise.mode === "sided") {
+            return `
+              <div class="set-row sided">
+                <div class="set-label">第${setIndex + 1}组</div>
+
+                <div class="field">
+                  <input
+                    type="number"
+                    min="0"
+                    step="1"
+                    inputmode="numeric"
+                    aria-label="${exercise.name}第${setIndex + 1}组左手次数"
+                    data-exercise="${exercise.id}"
+                    data-set="${setIndex}"
+                    data-type="left"
+                  />
+                  <span class="unit">左</span>
+                </div>
+
+                <div class="field">
+                  <input
+                    type="number"
+                    min="0"
+                    step="1"
+                    inputmode="numeric"
+                    aria-label="${exercise.name}第${setIndex + 1}组右手次数"
+                    data-exercise="${exercise.id}"
+                    data-set="${setIndex}"
+                    data-type="right"
+                  />
+                  <span class="unit">右</span>
+                </div>
+
+                <div class="field">
+                  <textarea
+                    rows="1"
+                    placeholder="本组评论"
+                    aria-label="${exercise.name}第${setIndex + 1}组评论"
+                    data-exercise="${exercise.id}"
+                    data-set="${setIndex}"
+                    data-type="comment"
+                  ></textarea>
+                </div>
+              </div>
+            `;
+          }
+
+          return `
+            <div class="set-row">
+              <div class="set-label">第${setIndex + 1}组</div>
+
+              <div class="field">
+                <input
+                  type="number"
+                  min="0"
+                  step="1"
+                  inputmode="numeric"
+                  aria-label="${exercise.name}第${setIndex + 1}组次数"
+                  data-exercise="${exercise.id}"
+                  data-set="${setIndex}"
+                  data-type="reps"
+                />
+                <span class="unit">次</span>
+              </div>
+
+              <div class="field">
+                <textarea
+                  rows="1"
+                  placeholder="本组评论"
+                  aria-label="${exercise.name}第${setIndex + 1}组评论"
+                  data-exercise="${exercise.id}"
+                  data-set="${setIndex}"
+                  data-type="comment"
+                ></textarea>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        return `
+          <article class="exercise-card">
+            <div class="exercise-head">
+              <div>
+                <h3>${exerciseIndex + 1}. ${exercise.name}</h3>
+                <p>${exercise.detail}</p>
+              </div>
+              <span id="badge-${exercise.id}" class="badge">0 / 4</span>
+            </div>
+
+            <div>${rows}</div>
+
+            <div id="result-${exercise.id}" class="exercise-result"></div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function applyDraftToForm() {
+      document.querySelectorAll("[data-exercise]").forEach(field => {
+        const exerciseId = field.dataset.exercise;
+        const setIndex = Number(field.dataset.set);
+        const type = field.dataset.type;
+        field.value = currentDraft?.exercises?.[exerciseId]?.[setIndex]?.[type] ?? "";
+        field.disabled = Boolean(currentDraft.completedAt);
+      });
+
+      const formatted = formatDateTime(currentDraft.startedAt);
+      sessionDate.textContent = currentDraft.completedAt
+        ? `${formatted.dateText}完成，已保存到历史`
+        : `${formatted.dateText}开始，填写后自动保存`;
+    }
+
+    function collectFormIntoDraft() {
+      document.querySelectorAll("[data-exercise]").forEach(field => {
+        const exerciseId = field.dataset.exercise;
+        const setIndex = Number(field.dataset.set);
+        const type = field.dataset.type;
+        currentDraft.exercises[exerciseId][setIndex][type] = field.value;
+      });
+    }
+
+    function isFilled(value) {
+      return String(value ?? "").trim() !== "";
+    }
+
+    function numeric(value) {
+      const number = Number(value);
+      return Number.isFinite(number) ? number : 0;
+    }
+
+    function completedSetsFor(exercise) {
+      const sets = currentDraft.exercises[exercise.id];
+
+      return sets.filter(set => {
+        if (exercise.mode === "sided") {
+          return isFilled(set.left) && isFilled(set.right);
+        }
+        return isFilled(set.reps);
+      }).length;
+    }
+
+    function getExerciseTotal(session, exercise) {
+      const sets = session.exercises[exercise.id] || [];
+
+      if (exercise.mode === "sided") {
+        return sets.reduce((sum, set) => {
+          return sum + numeric(set.left) + numeric(set.right);
+        }, 0);
+      }
+
+      return sets.reduce((sum, set) => sum + numeric(set.reps), 0);
+    }
+
+    function getSideTotals(session, exercise) {
+      if (exercise.mode !== "sided") return null;
+      const sets = session.exercises[exercise.id] || [];
+
+      return {
+        left: sets.reduce((sum, set) => sum + numeric(set.left), 0),
+        right: sets.reduce((sum, set) => sum + numeric(set.right), 0)
+      };
+    }
+
+    function previousMaxFor(exerciseId, history) {
+      const values = history.map(session => numeric(session.totals?.[exerciseId]));
+      return values.length ? Math.max(...values) : null;
+    }
+
+    function updateExerciseResult(exercise) {
+      const result = document.getElementById(`result-${exercise.id}`);
+      const done = completedSetsFor(exercise);
+
+      result.className = "exercise-result";
+      result.innerHTML = "";
+
+      if (done !== 4) return;
+
+      const history = loadHistory();
+      const total = getExerciseTotal(currentDraft, exercise);
+      const previousMax = previousMaxFor(exercise.id, history);
+
+      let extra = "";
+      if (exercise.mode === "sided") {
+        const sides = getSideTotals(currentDraft, exercise);
+        extra = `<span class="small">左手 ${sides.left} 次｜右手 ${sides.right} 次</span>`;
+      }
+
+      if (previousMax === null) {
+        result.classList.add("show", "first");
+        result.innerHTML = `✅ ${exercise.name}完成：总计 ${total} 次
+          <span class="small">这是第一次记录，已作为今后的历史基准。</span>${extra}`;
+        return;
+      }
+
+      if (total > previousMax) {
+        result.classList.add("show", "pr");
+        result.innerHTML = `🏆 ${exercise.name}创造新高：${total} 次
+          <span class="small">之前最高 ${previousMax} 次，本次提高 ${total - previousMax} 次。</span>${extra}`;
+        return;
+      }
+
+      result.classList.add("show", "normal");
+      result.innerHTML = `✅ ${exercise.name}完成：本次 ${total} 次
+        <span class="small">历史最高 ${previousMax} 次。</span>${extra}`;
+    }
+
+    function updateProgress() {
+      let doneGroups = 0;
+
+      EXERCISES.forEach(exercise => {
+        const done = completedSetsFor(exercise);
+        doneGroups += done;
+
+        const badge = document.getElementById(`badge-${exercise.id}`);
+        badge.textContent = done === 4 ? "已完成" : `${done} / 4`;
+        badge.classList.toggle("done", done === 4);
+
+        updateExerciseResult(exercise);
+      });
+
+      progressText.textContent = `已完成 ${doneGroups} / 12 组`;
+      progressBar.style.width = `${(doneGroups / 12) * 100}%`;
+
+      const completed = Boolean(currentDraft.completedAt);
+      finishCard.classList.toggle("show", completed);
+      resetWrap.style.display = completed ? "none" : "block";
+
+      if (doneGroups === 12 && !completed && !finalizing) {
+        finalizeSession();
+      }
+    }
+
+    function finalizeSession() {
+      finalizing = true;
+      collectFormIntoDraft();
+
+      const history = loadHistory();
+
+      currentDraft.completedAt = nowIso();
+      currentDraft.totals = {};
+      currentDraft.prFlags = {};
+
+      EXERCISES.forEach(exercise => {
+        const total = getExerciseTotal(currentDraft, exercise);
+        const previousMax = previousMaxFor(exercise.id, history);
+
+        currentDraft.totals[exercise.id] = total;
+        currentDraft.prFlags[exercise.id] =
+          previousMax !== null && total > previousMax;
+      });
+
+      history.push(JSON.parse(JSON.stringify(currentDraft)));
+      saveHistory(history);
+      saveDraft();
+      applyDraftToForm();
+      renderHistory();
+      updateProgress();
+      showToast("本次训练已保存到历史");
+      finalizing = false;
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      clearTimeout(toastTimer);
+      toast.classList.add("show");
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1300);
+    }
+
+    function renderHistory() {
+      const history = loadHistory().slice().reverse();
+      const hasHistory = history.length > 0;
+
+      document.getElementById("clearHistoryWrap").style.display =
+        hasHistory ? "block" : "none";
+      exportCsvBtn.disabled = !hasHistory;
+
+      if (!hasHistory) {
+        historyList.innerHTML = `
+          <div class="history-empty">
+            还没有完成过背部训练。<br />
+            第一次完成后会自动出现在这里。
+          </div>
+        `;
+        return;
+      }
+
+      historyList.innerHTML = history.map((session, index) => {
+        const date = formatDateTime(session.completedAt || session.startedAt);
+
+        const exerciseRows = EXERCISES.map(exercise => {
+          const total = numeric(session.totals?.[exercise.id]) ||
+                        getExerciseTotal(session, exercise);
+          const isPr = Boolean(session.prFlags?.[exercise.id]);
+          const sets = session.exercises?.[exercise.id] || [];
+
+          let setsText = "";
+          if (exercise.mode === "sided") {
+            const sideTotals = getSideTotals(session, exercise);
+            setsText = sets.map((set, i) =>
+              `第${i + 1}组 左${set.left || 0} / 右${set.right || 0}`
+            ).join("　");
+            setsText += `<br>左手合计 ${sideTotals.left} 次｜右手合计 ${sideTotals.right} 次`;
+          } else {
+            setsText = sets.map((set, i) =>
+              `第${i + 1}组 ${set.reps || 0}`
+            ).join("　");
+          }
+
+          return `
+            <div class="history-exercise">
+              <div class="history-exercise-head">
+                <strong>
+                  ${exercise.name}
+                  ${isPr ? '<span class="pr-pill">当时新高</span>' : ''}
+                </strong>
+                <span class="total">总计 ${total} 次</span>
+              </div>
+              <div class="sets-text">${setsText}</div>
+            </div>
+          `;
+        }).join("");
+
+        return `
+          <article class="history-card">
+            <div class="history-top">
+              <div>
+                <div class="history-date">${date.dateText}</div>
+                <div class="history-time">${date.timeText} 完成</div>
+              </div>
+              <div class="history-number">第 ${history.length - index} 次</div>
+            </div>
+            ${exerciseRows}
+          </article>
+        `;
+      }).join("");
+    }
+
+    function csvEscape(value) {
+      const text = String(value ?? "");
+      return `"${text.replace(/"/g, '""')}"`;
+    }
+
+    function exportHistoryCsv() {
+      const history = loadHistory();
+      if (!history.length) {
+        showToast("没有可导出的历史记录");
+        return;
+      }
+
+      const rows = [[
+        "训练编号",
+        "日期",
+        "时间",
+        "动作",
+        "重量",
+        "第1组",
+        "第2组",
+        "第3组",
+        "第4组",
+        "左手合计",
+        "右手合计",
+        "总次数",
+        "是否新高",
+        "评论"
+      ]];
+
+      history.forEach((session, sessionIndex) => {
+        const formatted = formatDateTime(session.completedAt || session.startedAt);
+
+        EXERCISES.forEach(exercise => {
+          const sets = session.exercises?.[exercise.id] || [];
+          const total = numeric(session.totals?.[exercise.id]) ||
+                        getExerciseTotal(session, exercise);
+          const sideTotals = getSideTotals(session, exercise);
+
+          const setValues = Array.from({ length: 4 }, (_, i) => {
+            const set = sets[i] || {};
+            if (exercise.mode === "sided") {
+              return `左${set.left || 0}/右${set.right || 0}`;
+            }
+            return set.reps || 0;
+          });
+
+          const comments = sets
+            .map((set, i) => {
+              const comment = String(set?.comment || "").trim();
+              return comment ? `第${i + 1}组：${comment}` : "";
+            })
+            .filter(Boolean)
+            .join("｜");
+
+          rows.push([
+            sessionIndex + 1,
+            formatted.dateText,
+            formatted.timeText,
+            exercise.name,
+            exercise.weight,
+            ...setValues,
+            sideTotals ? sideTotals.left : "",
+            sideTotals ? sideTotals.right : "",
+            total,
+            session.prFlags?.[exercise.id] ? "是" : "否",
+            comments
+          ]);
+        });
+      });
+
+      const csv = "\uFEFF" + rows
+        .map(row => row.map(csvEscape).join(","))
+        .join("\r\n");
+
+      const blob = new Blob([csv], {
+        type: "text/csv;charset=utf-8"
+      });
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `背部训练历史_${fileDate(nowIso())}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+
+      showToast("历史记录已导出");
+    }
+
+    function updateHomeState() {
+      const historyCount = loadHistory().length;
+
+      if (currentDraft?.completedAt) {
+        backState.textContent = historyCount
+          ? `已保存 ${historyCount} 次训练`
+          : "进入训练";
+        return;
+      }
+
+      const done = EXERCISES.reduce((sum, exercise) => {
+        return sum + completedSetsFor(exercise);
+      }, 0);
+
+      backState.textContent = done > 0
+        ? `本次已填 ${done} / 12 组`
+        : historyCount > 0
+          ? `已有 ${historyCount} 次记录`
+          : "进入训练";
+    }
+
+    function startNewSession() {
+      currentDraft = newSession();
+      saveDraft();
+      applyDraftToForm();
+      updateProgress();
+      switchTab("current");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      showToast("已开始新的背部训练");
+    }
+
+    function switchPage(target) {
+      homePage.classList.toggle("active", target === "home");
+      backPage.classList.toggle("active", target === "back");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function switchTab(tabName) {
+      document.querySelectorAll(".tab-btn").forEach(button => {
+        button.classList.toggle("active", button.dataset.tab === tabName);
+      });
+
+      document.getElementById("currentPanel").classList.toggle(
+        "active",
+        tabName === "current"
+      );
+      document.getElementById("historyPanel").classList.toggle(
+        "active",
+        tabName === "history"
+      );
+
+      if (tabName === "history") renderHistory();
+    }
+
+    document.getElementById("openBack").addEventListener("click", () => {
+      switchPage("back");
+    });
+
+    document.getElementById("goHome").addEventListener("click", () => {
+      switchPage("home");
+    });
+
+    document.querySelectorAll(".tab-btn").forEach(button => {
+      button.addEventListener("click", () => switchTab(button.dataset.tab));
+    });
+
+    exerciseList.addEventListener("input", event => {
+      if (!event.target.matches("[data-exercise]") || currentDraft.completedAt) return;
+
+      collectFormIntoDraft();
+      saveText.textContent = "保存中…";
+      updateProgress();
+
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => {
+        saveDraft();
+      }, 220);
+    });
+
+    exerciseList.addEventListener("change", event => {
+      if (!event.target.matches("[data-exercise]") || currentDraft.completedAt) return;
+      collectFormIntoDraft();
+      saveDraft();
+      updateProgress();
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      if (currentDraft.completedAt) return;
+
+      const confirmed = confirm("确定清空本次尚未完成的训练记录吗？");
+      if (!confirmed) return;
+
+      currentDraft = newSession();
+      saveDraft();
+      applyDraftToForm();
+      updateProgress();
+      showToast("本次记录已清空");
+    });
+
+    document.getElementById("newSessionBtn").addEventListener("click", startNewSession);
+
+    document.getElementById("clearHistoryBtn").addEventListener("click", () => {
+      const confirmed = confirm("确定清空所有背部训练历史吗？此操作不能恢复。");
+      if (!confirmed) return;
+
+      localStorage.removeItem(HISTORY_KEY);
+      renderHistory();
+      updateProgress();
+      updateHomeState();
+      showToast("历史记录已清空");
+    });
+
+    exportCsvBtn.addEventListener("click", exportHistoryCsv);
+
+    createExerciseCards();
+    migrateLegacyIfNeeded();
+    currentDraft = loadDraft() || newSession();
+    saveDraft();
+    applyDraftToForm();
+    updateProgress();
+    renderHistory();
+    updateHomeState();
+  </script>
+
+
+  <script>
+    (() => {
+      const ABS_EXERCISES = [
+        {
+          id: "hangingLegRaise",
+          name: "悬挂举腿",
+          detail: "自重｜共6组",
+          weight: "自重",
+          sets: 6
+        },
+        {
+          id: "machineCrunch",
+          name: "机械腹部",
+          detail: "固定重量：54 kg｜共4组",
+          weight: "54 kg",
+          sets: 4
+        }
+      ];
+
+      const HISTORY_KEY = "absWorkoutHistoryV1";
+      const DRAFT_KEY = "absWorkoutDraftV1";
+      const TOTAL_SETS = 10;
+
+      const homePage = document.getElementById("homePage");
+      const backPage = document.getElementById("backPage");
+      const absPage = document.getElementById("absPage");
+      const list = document.getElementById("absExerciseList");
+      const historyList = document.getElementById("absHistoryList");
+      const progressText = document.getElementById("absProgressText");
+      const progressBar = document.getElementById("absProgressBar");
+      const saveText = document.getElementById("absSaveText");
+      const sessionDate = document.getElementById("absSessionDate");
+      const finishCard = document.getElementById("absFinishCard");
+      const resetWrap = document.getElementById("absResetWrap");
+      const exportBtn = document.getElementById("absExportCsvBtn");
+      const absState = document.getElementById("absState");
+
+      let draft = null;
+      let saveTimer = null;
+      let finalizing = false;
+
+      function nowIso() {
+        return new Date().toISOString();
+      }
+
+      function formatDateTime(iso) {
+        const date = new Date(iso);
+        return {
+          dateText: new Intl.DateTimeFormat("zh-CN", {
+            timeZone: "Asia/Tokyo",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            weekday: "short"
+          }).format(date),
+          timeText: new Intl.DateTimeFormat("zh-CN", {
+            timeZone: "Asia/Tokyo",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false
+          }).format(date)
+        };
+      }
+
+      function fileDate() {
+        return new Intl.DateTimeFormat("en-CA", {
+          timeZone: "Asia/Tokyo",
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit"
+        }).format(new Date());
+      }
+
+      function newDraft() {
+        const exercises = {};
+        ABS_EXERCISES.forEach(exercise => {
+          exercises[exercise.id] = Array.from({ length: exercise.sets }, () => ({
+            reps: "",
+            comment: ""
+          }));
+        });
+
+        return {
+          id: "abs-" + Date.now() + "-" + Math.random().toString(16).slice(2),
+          startedAt: nowIso(),
+          completedAt: null,
+          exercises,
+          totals: {},
+          prFlags: {}
+        };
+      }
+
+      function loadHistory() {
+        try {
+          const value = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+          return Array.isArray(value) ? value : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function loadDraft() {
+        try {
+          const value = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null");
+          return value && value.exercises ? value : null;
+        } catch {
+          return null;
+        }
+      }
+
+      function saveDraft() {
+        localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+        saveText.textContent = draft.completedAt ? "已存入历史" : "已自动保存";
+        updateHomeState();
+      }
+
+      function renderExercises() {
+        list.innerHTML = ABS_EXERCISES.map((exercise, exerciseIndex) => {
+          const rows = Array.from({ length: exercise.sets }, (_, setIndex) => `
+            <div class="set-row">
+              <div class="set-label">第${setIndex + 1}组</div>
+              <div class="field">
+                <input
+                  type="number"
+                  min="0"
+                  step="1"
+                  inputmode="numeric"
+                  aria-label="${exercise.name}第${setIndex + 1}组次数"
+                  data-abs-exercise="${exercise.id}"
+                  data-abs-set="${setIndex}"
+                  data-abs-type="reps"
+                />
+                <span class="unit">次</span>
+              </div>
+              <div class="field">
+                <textarea
+                  rows="1"
+                  placeholder="本组评论"
+                  aria-label="${exercise.name}第${setIndex + 1}组评论"
+                  data-abs-exercise="${exercise.id}"
+                  data-abs-set="${setIndex}"
+                  data-abs-type="comment"
+                ></textarea>
+              </div>
+            </div>
+          `).join("");
+
+          return `
+            <article class="exercise-card">
+              <div class="exercise-head">
+                <div>
+                  <h3>${exerciseIndex + 1}. ${exercise.name}</h3>
+                  <p>${exercise.detail}</p>
+                </div>
+                <span id="abs-badge-${exercise.id}" class="badge">0 / ${exercise.sets}</span>
+              </div>
+              <div>${rows}</div>
+              <div id="abs-result-${exercise.id}" class="exercise-result"></div>
+            </article>
+          `;
+        }).join("");
+      }
+
+      function applyDraft() {
+        document.querySelectorAll("[data-abs-exercise]").forEach(field => {
+          const exerciseId = field.dataset.absExercise;
+          const setIndex = Number(field.dataset.absSet);
+          const type = field.dataset.absType;
+          field.value = draft.exercises?.[exerciseId]?.[setIndex]?.[type] ?? "";
+          field.disabled = Boolean(draft.completedAt);
+        });
+
+        const formatted = formatDateTime(draft.startedAt);
+        sessionDate.textContent = draft.completedAt
+          ? `${formatted.dateText}完成，已保存到历史`
+          : `${formatted.dateText}开始，填写后自动保存`;
+      }
+
+      function collectDraft() {
+        document.querySelectorAll("[data-abs-exercise]").forEach(field => {
+          const exerciseId = field.dataset.absExercise;
+          const setIndex = Number(field.dataset.absSet);
+          const type = field.dataset.absType;
+          draft.exercises[exerciseId][setIndex][type] = field.value;
+        });
+      }
+
+      function filled(value) {
+        return String(value ?? "").trim() !== "";
+      }
+
+      function numberValue(value) {
+        const number = Number(value);
+        return Number.isFinite(number) ? number : 0;
+      }
+
+      function completedSets(exercise, session = draft) {
+        return (session.exercises?.[exercise.id] || [])
+          .filter(set => filled(set.reps)).length;
+      }
+
+      function totalFor(session, exercise) {
+        return (session.exercises?.[exercise.id] || [])
+          .reduce((sum, set) => sum + numberValue(set.reps), 0);
+      }
+
+      function previousMax(exerciseId, history) {
+        const totals = history.map(item => numberValue(item.totals?.[exerciseId]));
+        return totals.length ? Math.max(...totals) : null;
+      }
+
+      function renderExerciseResult(exercise) {
+        const result = document.getElementById(`abs-result-${exercise.id}`);
+        result.className = "exercise-result";
+        result.innerHTML = "";
+
+        if (completedSets(exercise) !== exercise.sets) return;
+
+        const history = loadHistory();
+        const total = totalFor(draft, exercise);
+        const oldMax = previousMax(exercise.id, history);
+
+        if (oldMax === null) {
+          result.classList.add("show", "first");
+          result.innerHTML = `✅ ${exercise.name}完成：总计 ${total} 次
+            <span class="small">这是第一次记录，已作为今后的历史基准。</span>`;
+        } else if (total > oldMax) {
+          result.classList.add("show", "pr");
+          result.innerHTML = `🏆 ${exercise.name}创造新高：${total} 次
+            <span class="small">之前最高 ${oldMax} 次，本次提高 ${total - oldMax} 次。</span>`;
+        } else {
+          result.classList.add("show", "normal");
+          result.innerHTML = `✅ ${exercise.name}完成：本次 ${total} 次
+            <span class="small">历史最高 ${oldMax} 次。</span>`;
+        }
+      }
+
+      function updateProgress() {
+        let completed = 0;
+
+        ABS_EXERCISES.forEach(exercise => {
+          const done = completedSets(exercise);
+          completed += done;
+          const badge = document.getElementById(`abs-badge-${exercise.id}`);
+          badge.textContent = done === exercise.sets ? "已完成" : `${done} / ${exercise.sets}`;
+          badge.classList.toggle("done", done === exercise.sets);
+          renderExerciseResult(exercise);
+        });
+
+        progressText.textContent = `已完成 ${completed} / ${TOTAL_SETS} 组`;
+        progressBar.style.width = `${completed / TOTAL_SETS * 100}%`;
+        finishCard.classList.toggle("show", Boolean(draft.completedAt));
+        resetWrap.style.display = draft.completedAt ? "none" : "block";
+
+        if (completed === TOTAL_SETS && !draft.completedAt && !finalizing) {
+          finalize();
+        }
+      }
+
+      function finalize() {
+        finalizing = true;
+        collectDraft();
+        const history = loadHistory();
+
+        draft.completedAt = nowIso();
+        draft.totals = {};
+        draft.prFlags = {};
+
+        ABS_EXERCISES.forEach(exercise => {
+          const total = totalFor(draft, exercise);
+          const oldMax = previousMax(exercise.id, history);
+          draft.totals[exercise.id] = total;
+          draft.prFlags[exercise.id] = oldMax !== null && total > oldMax;
+        });
+
+        history.push(JSON.parse(JSON.stringify(draft)));
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+        saveDraft();
+        applyDraft();
+        renderHistory();
+        updateProgress();
+        finalizing = false;
+      }
+
+      function renderHistory() {
+        const history = loadHistory().slice().reverse();
+        const hasHistory = history.length > 0;
+        exportBtn.disabled = !hasHistory;
+        document.getElementById("absClearHistoryWrap").style.display = hasHistory ? "block" : "none";
+
+        if (!hasHistory) {
+          historyList.innerHTML = `
+            <div class="history-empty">
+              还没有完成过腹部训练。<br />
+              第一次完成后会自动出现在这里。
+            </div>`;
+          return;
+        }
+
+        historyList.innerHTML = history.map((session, index) => {
+          const date = formatDateTime(session.completedAt || session.startedAt);
+          const rows = ABS_EXERCISES.map(exercise => {
+            const sets = session.exercises?.[exercise.id] || [];
+            const total = numberValue(session.totals?.[exercise.id]) || totalFor(session, exercise);
+            const setText = sets.map((set, i) => `第${i + 1}组 ${set.reps || 0}`).join("　");
+            return `
+              <div class="history-exercise">
+                <div class="history-exercise-head">
+                  <strong>
+                    ${exercise.name}
+                    ${session.prFlags?.[exercise.id] ? '<span class="pr-pill">当时新高</span>' : ''}
+                  </strong>
+                  <span class="total">总计 ${total} 次</span>
+                </div>
+                <div class="sets-text">${setText}</div>
+              </div>`;
+          }).join("");
+
+          return `
+            <article class="history-card">
+              <div class="history-top">
+                <div>
+                  <div class="history-date">${date.dateText}</div>
+                  <div class="history-time">${date.timeText} 完成</div>
+                </div>
+                <div class="history-number">第 ${history.length - index} 次</div>
+              </div>
+              ${rows}
+            </article>`;
+        }).join("");
+      }
+
+      function csvEscape(value) {
+        return `"${String(value ?? "").replace(/"/g, '""')}"`;
+      }
+
+      function exportCsv() {
+        const history = loadHistory();
+        if (!history.length) return;
+
+        const rows = [[
+          "训练编号", "日期", "时间", "动作", "重量",
+          "第1组", "第2组", "第3组", "第4组", "第5组", "第6组",
+          "总次数", "是否新高", "评论"
+        ]];
+
+        history.forEach((session, sessionIndex) => {
+          const date = formatDateTime(session.completedAt || session.startedAt);
+          ABS_EXERCISES.forEach(exercise => {
+            const sets = session.exercises?.[exercise.id] || [];
+            const setValues = Array.from({ length: 6 }, (_, i) =>
+              i < exercise.sets ? (sets[i]?.reps || 0) : ""
+            );
+            const comments = sets.map((set, i) => {
+              const comment = String(set.comment || "").trim();
+              return comment ? `第${i + 1}组：${comment}` : "";
+            }).filter(Boolean).join("｜");
+
+            rows.push([
+              sessionIndex + 1,
+              date.dateText,
+              date.timeText,
+              exercise.name,
+              exercise.weight,
+              ...setValues,
+              numberValue(session.totals?.[exercise.id]) || totalFor(session, exercise),
+              session.prFlags?.[exercise.id] ? "是" : "否",
+              comments
+            ]);
+          });
+        });
+
+        const csv = "\uFEFF" + rows.map(row => row.map(csvEscape).join(",")).join("\r\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `腹部训练历史_${fileDate()}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      function switchTab(tab) {
+        document.querySelectorAll(".abs-tab-btn").forEach(button => {
+          button.classList.toggle("active", button.dataset.absTab === tab);
+        });
+        document.getElementById("absCurrentPanel").classList.toggle("active", tab === "current");
+        document.getElementById("absHistoryPanel").classList.toggle("active", tab === "history");
+        if (tab === "history") renderHistory();
+      }
+
+      function updateHomeState() {
+        const historyCount = loadHistory().length;
+        const savedDraft = loadDraft();
+
+        if (savedDraft?.completedAt) {
+          absState.textContent = historyCount ? `已保存 ${historyCount} 次训练` : "进入训练";
+          return;
+        }
+
+        if (savedDraft?.exercises) {
+          const done = ABS_EXERCISES.reduce((sum, exercise) =>
+            sum + completedSets(exercise, savedDraft), 0
+          );
+          absState.textContent = done > 0
+            ? `本次已填 ${done} / ${TOTAL_SETS} 组`
+            : historyCount > 0 ? `已有 ${historyCount} 次记录` : "进入训练";
+          return;
+        }
+
+        absState.textContent = historyCount > 0 ? `已有 ${historyCount} 次记录` : "进入训练";
+      }
+
+      function openAbs() {
+        draft = loadDraft() || newDraft();
+        if (!localStorage.getItem(DRAFT_KEY)) saveDraft();
+        renderExercises();
+        applyDraft();
+        updateProgress();
+        renderHistory();
+        switchTab("current");
+        homePage.classList.remove("active");
+        backPage.classList.remove("active");
+        absPage.classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      document.getElementById("openAbs").addEventListener("click", openAbs);
+
+      document.getElementById("absGoHome").addEventListener("click", () => {
+        absPage.classList.remove("active");
+        homePage.classList.add("active");
+        updateHomeState();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.querySelectorAll(".abs-tab-btn").forEach(button => {
+        button.addEventListener("click", () => switchTab(button.dataset.absTab));
+      });
+
+      list.addEventListener("input", event => {
+        if (!event.target.matches("[data-abs-exercise]") || draft.completedAt) return;
+        collectDraft();
+        saveText.textContent = "保存中…";
+        updateProgress();
+        clearTimeout(saveTimer);
+        saveTimer = setTimeout(saveDraft, 220);
+      });
+
+      list.addEventListener("change", event => {
+        if (!event.target.matches("[data-abs-exercise]") || draft.completedAt) return;
+        collectDraft();
+        saveDraft();
+        updateProgress();
+      });
+
+      document.getElementById("absNewSessionBtn").addEventListener("click", () => {
+        draft = newDraft();
+        saveDraft();
+        renderExercises();
+        applyDraft();
+        updateProgress();
+        switchTab("current");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      document.getElementById("absResetBtn").addEventListener("click", () => {
+        if (draft.completedAt || !confirm("确定清空本次尚未完成的腹部训练记录吗？")) return;
+        draft = newDraft();
+        saveDraft();
+        renderExercises();
+        applyDraft();
+        updateProgress();
+      });
+
+      document.getElementById("absClearHistoryBtn").addEventListener("click", () => {
+        if (!confirm("确定清空所有腹部训练历史吗？此操作不能恢复。")) return;
+        localStorage.removeItem(HISTORY_KEY);
+        renderHistory();
+        updateProgress();
+        updateHomeState();
+      });
+
+      exportBtn.addEventListener("click", exportCsv);
+      updateHomeState();
+    })();
+  </script>
+
+</body>
+</html>
