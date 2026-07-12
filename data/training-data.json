@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-12T14:40:00.000Z",
+  "updatedAt": "2026-07-12T14:47:48.835Z",
   "source": {
     "origin": "https://fjnanyuan.github.io",
     "path": "/kintore/",
-    "userAgent": "initialized-reset"
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5 Mobile/15E148 Safari/604.1"
   },
   "storage": {
     "backWorkoutHistoryV2": "[]",
-    "backWorkoutDraftV2": "",
+    "backWorkoutDraftV2": "{\"id\":\"back-1783867660922-b56ca535fef34\",\"startedAt\":\"2026-07-12T14:47:40.922Z\",\"completedAt\":null,\"exercises\":{\"pullup\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"latPulldown\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"cableRow\":[{\"left\":\"\",\"right\":\"\",\"comment\":\"\"},{\"left\":\"\",\"right\":\"\",\"comment\":\"\"},{\"left\":\"\",\"right\":\"\",\"comment\":\"\"},{\"left\":\"\",\"right\":\"\",\"comment\":\"\"}]},\"totals\":{},\"prFlags\":{}}",
     "chestWorkoutHistoryV1": "[]",
     "chestWorkoutDraftV1": "",
     "shoulderWorkoutHistoryV1": "[]",
