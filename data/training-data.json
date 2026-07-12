@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-12T14:47:53.078Z",
+  "updatedAt": "2026-07-12T14:48:35.385Z",
   "source": {
     "origin": "https://fjnanyuan.github.io",
     "path": "/kintore/",
@@ -12,7 +12,7 @@
     "chestWorkoutHistoryV1": "[]",
     "chestWorkoutDraftV1": "",
     "shoulderWorkoutHistoryV1": "[]",
-    "shoulderWorkoutDraftV1": "",
+    "shoulderWorkoutDraftV1": "{\"id\":\"shoulder-1783867713175-417a10602c5258\",\"startedAt\":\"2026-07-12T14:48:33.175Z\",\"completedAt\":null,\"exercises\":{\"dumbbellFly\":[{\"first\":\"\",\"second\":\"\",\"comment\":\"\"},{\"first\":\"\",\"second\":\"\",\"comment\":\"\"},{\"first\":\"\",\"second\":\"\",\"comment\":\"\"},{\"first\":\"\",\"second\":\"\",\"comment\":\"\"},{\"first\":\"\",\"second\":\"\",\"comment\":\"\"},{\"first\":\"\",\"second\":\"\",\"comment\":\"\"}],\"yRaise\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"reversePecDeck\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"machineShoulderPress\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}]},\"totals\":{},\"prFlags\":{}}",
     "absWorkoutHistoryV1": "[]",
     "absWorkoutDraftV1": "",
     "skippedWorkoutHistoryV1": "[]"
