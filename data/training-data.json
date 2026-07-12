@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-12T14:21:20.127Z",
+  "updatedAt": "2026-07-12T14:37:46.986Z",
   "source": {
     "origin": "https://fjnanyuan.github.io",
     "path": "/kintore/",
@@ -8,9 +8,9 @@
   },
   "storage": {
     "backWorkoutHistoryV2": "[]",
-    "backWorkoutDraftV2": "{\"id\":\"back-1783865997926-04e0d5f1656328\",\"startedAt\":\"2026-07-12T14:19:57.926Z\",\"completedAt\":null,\"exercises\":{\"pullup\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"latPulldown\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"cableRow\":[{\"left\":\"\",\"right\":\"\",\"comment\":\"\"},{\"left\":\"\",\"right\":\"\",\"comment\":\"\"},{\"left\":\"\",\"right\":\"\",\"comment\":\"\"},{\"left\":\"\",\"right\":\"\",\"comment\":\"\"}]},\"totals\":{},\"prFlags\":{}}",
-    "chestWorkoutHistoryV1": "[]",
-    "chestWorkoutDraftV1": "",
+    "backWorkoutDraftV2": "{\"id\":\"back-1783866940254-4b9da8985eaf2\",\"startedAt\":\"2026-07-12T14:35:40.254Z\",\"completedAt\":null,\"exercises\":{\"pullup\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"latPulldown\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"cableRow\":[{\"left\":\"\",\"right\":\"\",\"comment\":\"\"},{\"left\":\"\",\"right\":\"\",\"comment\":\"\"},{\"left\":\"\",\"right\":\"\",\"comment\":\"\"},{\"left\":\"\",\"right\":\"\",\"comment\":\"\"}]},\"totals\":{},\"prFlags\":{}}",
+    "chestWorkoutHistoryV1": "[{\"id\":\"chest-1783866941497-a1b4d7abbcf508\",\"startedAt\":\"2026-07-12T14:35:41.497Z\",\"completedAt\":\"2026-07-12T14:36:33.433Z\",\"exercises\":{\"flatBenchPress\":[{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"6\",\"comment\":\"\"},{\"reps\":\"6\",\"comment\":\"\"},{\"reps\":\"6\",\"comment\":\"\"}],\"inclineDumbbellPress\":[{\"reps\":\"10\",\"comment\":\"\"},{\"reps\":\"10\",\"comment\":\"\"},{\"reps\":\"10\",\"comment\":\"\"},{\"reps\":\"10\",\"comment\":\"\"}],\"dumbbellBenchPress\":[{\"reps\":\"7\",\"comment\":\"\"},{\"reps\":\"6\",\"comment\":\"\"},{\"reps\":\"5\",\"comment\":\"\"},{\"reps\":\"5\",\"comment\":\"\"}]},\"totals\":{\"flatBenchPress\":26,\"inclineDumbbellPress\":40,\"dumbbellBenchPress\":23},\"prFlags\":{\"flatBenchPress\":false,\"inclineDumbbellPress\":false,\"dumbbellBenchPress\":false}}]",
+    "chestWorkoutDraftV1": "{\"id\":\"chest-1783866941497-a1b4d7abbcf508\",\"startedAt\":\"2026-07-12T14:35:41.497Z\",\"completedAt\":\"2026-07-12T14:36:33.433Z\",\"exercises\":{\"flatBenchPress\":[{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"6\",\"comment\":\"\"},{\"reps\":\"6\",\"comment\":\"\"},{\"reps\":\"6\",\"comment\":\"\"}],\"inclineDumbbellPress\":[{\"reps\":\"10\",\"comment\":\"\"},{\"reps\":\"10\",\"comment\":\"\"},{\"reps\":\"10\",\"comment\":\"\"},{\"reps\":\"10\",\"comment\":\"\"}],\"dumbbellBenchPress\":[{\"reps\":\"7\",\"comment\":\"\"},{\"reps\":\"6\",\"comment\":\"\"},{\"reps\":\"5\",\"comment\":\"\"},{\"reps\":\"5\",\"comment\":\"\"}]},\"totals\":{\"flatBenchPress\":26,\"inclineDumbbellPress\":40,\"dumbbellBenchPress\":23},\"prFlags\":{\"flatBenchPress\":false,\"inclineDumbbellPress\":false,\"dumbbellBenchPress\":false}}",
     "shoulderWorkoutHistoryV1": "[]",
     "shoulderWorkoutDraftV1": "",
     "absWorkoutHistoryV1": "[]",
