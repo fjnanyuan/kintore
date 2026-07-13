@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-13T13:45:04.294Z",
+  "updatedAt": "2026-07-13T13:49:13.968Z",
   "source": {
     "origin": "https://fjnanyuan.github.io",
     "path": "/kintore/",
     "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5 Mobile/15E148 Safari/604.1"
   },
   "storage": {
-    "backWorkoutHistoryV2": "[]",
-    "backWorkoutDraftV2": "{\"id\":\"back-1783868121325-aad7798e6a8de8\",\"startedAt\":\"2026-07-12T14:55:21.326Z\",\"completedAt\":null,\"exercises\":{\"pullup\":[{\"reps\":\"9\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"7\",\"comment\":\"\"},{\"reps\":\"7\",\"comment\":\"\"}],\"latPulldown\":[{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"}],\"cableRow\":[{\"left\":\"10\",\"right\":\"10\",\"comment\":\"\"},{\"left\":\"10\",\"right\":\"10\",\"comment\":\"\"},{\"left\":\"10\",\"right\":\"10\",\"comment\":\"\"},{\"left\":\"\",\"right\":\"\",\"comment\":\"\"}]},\"totals\":{},\"prFlags\":{}}",
+    "backWorkoutHistoryV2": "[{\"id\":\"back-1783868121325-aad7798e6a8de8\",\"startedAt\":\"2026-07-12T14:55:21.326Z\",\"completedAt\":\"2026-07-13T13:49:11.034Z\",\"exercises\":{\"pullup\":[{\"reps\":\"9\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"7\",\"comment\":\"\"},{\"reps\":\"7\",\"comment\":\"\"}],\"latPulldown\":[{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"}],\"cableRow\":[{\"left\":\"10\",\"right\":\"10\",\"comment\":\"\"},{\"left\":\"10\",\"right\":\"10\",\"comment\":\"\"},{\"left\":\"10\",\"right\":\"10\",\"comment\":\"\"},{\"left\":\"10\",\"right\":\"1\",\"comment\":\"\"}]},\"totals\":{\"pullup\":31,\"latPulldown\":32,\"cableRow\":71},\"prFlags\":{\"pullup\":false,\"latPulldown\":false,\"cableRow\":false}}]",
+    "backWorkoutDraftV2": "{\"id\":\"back-1783868121325-aad7798e6a8de8\",\"startedAt\":\"2026-07-12T14:55:21.326Z\",\"completedAt\":\"2026-07-13T13:49:11.034Z\",\"exercises\":{\"pullup\":[{\"reps\":\"9\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"7\",\"comment\":\"\"},{\"reps\":\"7\",\"comment\":\"\"}],\"latPulldown\":[{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"}],\"cableRow\":[{\"left\":\"10\",\"right\":\"10\",\"comment\":\"\"},{\"left\":\"10\",\"right\":\"10\",\"comment\":\"\"},{\"left\":\"10\",\"right\":\"10\",\"comment\":\"\"},{\"left\":\"10\",\"right\":\"1\",\"comment\":\"\"}]},\"totals\":{\"pullup\":31,\"latPulldown\":32,\"cableRow\":71},\"prFlags\":{\"pullup\":false,\"latPulldown\":false,\"cableRow\":false}}",
     "chestWorkoutHistoryV1": "[]",
     "chestWorkoutDraftV1": "{\"id\":\"chest-1783868256976-8c4c532dd32168\",\"startedAt\":\"2026-07-12T14:57:36.976Z\",\"completedAt\":null,\"exercises\":{\"flatBenchPress\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"inclineDumbbellPress\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"dumbbellBenchPress\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}]},\"totals\":{},\"prFlags\":{}}",
     "shoulderWorkoutHistoryV1": "[]",
