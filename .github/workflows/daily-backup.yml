@@ -1,0 +1,89 @@
+name: Daily 30-Day Training Backup
+
+on:
+  schedule:
+    # 日本时间每天00:10执行
+    - cron: "10 0 * * *"
+      timezone: "Asia/Tokyo"
+
+  # 允许在Actions页面手动测试
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: training-data-daily-backup
+  cancel-in-progress: false
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create and commit backup
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          SOURCE_FILE="data/training-data.json"
+          BACKUP_DIR="backups"
+
+          if [ ! -s "$SOURCE_FILE" ]; then
+            echo "数据文件不存在或内容为空：$SOURCE_FILE"
+            exit 1
+          fi
+
+          # 确认JSON格式没有损坏
+          python -m json.tool "$SOURCE_FILE" > /dev/null
+
+          mkdir -p "$BACKUP_DIR"
+
+          BACKUP_DATE=$(TZ=Asia/Tokyo date +%F)
+          BACKUP_FILE="$BACKUP_DIR/training-data-$BACKUP_DATE.json"
+
+          cp "$SOURCE_FILE" "$BACKUP_FILE"
+
+          echo "已创建备份：$BACKUP_FILE"
+
+          # 找出全部每日备份，按照日期排序
+          mapfile -t BACKUP_FILES < <(
+            find "$BACKUP_DIR" \
+              -maxdepth 1 \
+              -type f \
+              -name 'training-data-????-??-??.json' \
+              | sort
+          )
+
+          BACKUP_COUNT=${#BACKUP_FILES[@]}
+
+          # 只保留最近30份
+          if [ "$BACKUP_COUNT" -gt 30 ]; then
+            DELETE_COUNT=$((BACKUP_COUNT - 30))
+
+            for ((i=0; i<DELETE_COUNT; i++)); do
+              echo "删除最旧备份：${BACKUP_FILES[$i]}"
+              rm -f "${BACKUP_FILES[$i]}"
+            done
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A "$BACKUP_DIR"
+
+          if git diff --cached --quiet; then
+            echo "没有需要提交的备份变化"
+            exit 0
+          fi
+
+          git commit -m "backup: training data $BACKUP_DATE"
+
+          # 避免备份时手机刚好同步造成推送冲突
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
