@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-13T12:42:30.461Z",
+  "updatedAt": "2026-07-13T13:02:38.524Z",
   "source": {
     "origin": "https://fjnanyuan.github.io",
     "path": "/kintore/",
@@ -8,7 +8,7 @@
   },
   "storage": {
     "backWorkoutHistoryV2": "[]",
-    "backWorkoutDraftV2": "{\"id\":\"back-1783868121325-aad7798e6a8de8\",\"startedAt\":\"2026-07-12T14:55:21.326Z\",\"completedAt\":null,\"exercises\":{\"pullup\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"latPulldown\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"cableRow\":[{\"left\":\"\",\"right\":\"\",\"comment\":\"\"},{\"left\":\"\",\"right\":\"\",\"comment\":\"\"},{\"left\":\"\",\"right\":\"\",\"comment\":\"\"},{\"left\":\"\",\"right\":\"\",\"comment\":\"\"}]},\"totals\":{},\"prFlags\":{}}",
+    "backWorkoutDraftV2": "{\"id\":\"back-1783868121325-aad7798e6a8de8\",\"startedAt\":\"2026-07-12T14:55:21.326Z\",\"completedAt\":null,\"exercises\":{\"pullup\":[{\"reps\":\"9\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"latPulldown\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"cableRow\":[{\"left\":\"\",\"right\":\"\",\"comment\":\"\"},{\"left\":\"\",\"right\":\"\",\"comment\":\"\"},{\"left\":\"\",\"right\":\"\",\"comment\":\"\"},{\"left\":\"\",\"right\":\"\",\"comment\":\"\"}]},\"totals\":{},\"prFlags\":{}}",
     "chestWorkoutHistoryV1": "[]",
     "chestWorkoutDraftV1": "{\"id\":\"chest-1783868256976-8c4c532dd32168\",\"startedAt\":\"2026-07-12T14:57:36.976Z\",\"completedAt\":null,\"exercises\":{\"flatBenchPress\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"inclineDumbbellPress\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"dumbbellBenchPress\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}]},\"totals\":{},\"prFlags\":{}}",
     "shoulderWorkoutHistoryV1": "[]",
