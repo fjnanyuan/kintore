@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-14T13:08:12.405Z",
+  "updatedAt": "2026-07-14T13:22:56.416Z",
   "source": {
     "origin": "https://fjnanyuan.github.io",
     "path": "/kintore/",
@@ -15,6 +15,8 @@
     "shoulderWorkoutDraftV1": "{\"id\":\"shoulder-1783868122757-4ca2340ea8609\",\"startedAt\":\"2026-07-12T14:55:22.757Z\",\"completedAt\":null,\"exercises\":{\"dumbbellFly\":[{\"first\":\"\",\"second\":\"\",\"comment\":\"\"},{\"first\":\"\",\"second\":\"\",\"comment\":\"\"},{\"first\":\"\",\"second\":\"\",\"comment\":\"\"},{\"first\":\"\",\"second\":\"\",\"comment\":\"\"},{\"first\":\"\",\"second\":\"\",\"comment\":\"\"},{\"first\":\"\",\"second\":\"\",\"comment\":\"\"}],\"yRaise\":[{\"right\":\"\",\"left\":\"\",\"comment\":\"\"},{\"right\":\"\",\"left\":\"\",\"comment\":\"\"},{\"right\":\"\",\"left\":\"\",\"comment\":\"\"},{\"right\":\"\",\"left\":\"\",\"comment\":\"\"}],\"reversePecDeck\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"machineShoulderPress\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}]},\"totals\":{},\"prFlags\":{}}",
     "absWorkoutHistoryV1": "[]",
     "absWorkoutDraftV1": "{\"id\":\"abs-1783956109919-312df12d04d19\",\"startedAt\":\"2026-07-13T15:21:49.919Z\",\"completedAt\":null,\"exercises\":{\"hangingLegRaise\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}],\"machineCrunch\":[{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"},{\"reps\":\"\",\"comment\":\"\"}]},\"totals\":{},\"prFlags\":{}}",
+    "basketballWorkoutHistoryV1": "[]",
+    "basketballWorkoutDraftV1": "",
     "skippedWorkoutHistoryV1": "[{\"id\":\"skip-1783868186354-dfd18ce128fd8\",\"date\":\"2026-07-12\",\"reason\":\"其他\",\"detail\":\"有人来找我，我中午1点才起床，然后怎么说，又不想去锻炼又想着收拾屋子，然后就决定不去了，7点和人见面\",\"createdAt\":\"2026-07-12T14:56:26.354Z\"}]"
   }
 }
