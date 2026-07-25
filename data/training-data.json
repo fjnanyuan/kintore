@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-07-24T00:52:39.924Z",
+  "updatedAt": "2026-07-25T11:26:30.273Z",
   "source": {
     "origin": "https://fjnanyuan.github.io",
     "path": "/kintore/",
-    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5 Mobile/15E148 Safari/604.1"
+    "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5.2 Mobile/15E148 Safari/604.1"
   },
   "storage": {
     "backWorkoutHistoryV2": "[{\"id\":\"back-1783868121325-aad7798e6a8de8\",\"startedAt\":\"2026-07-12T14:55:21.326Z\",\"completedAt\":\"2026-07-13T13:49:11.034Z\",\"exercises\":{\"pullup\":[{\"reps\":\"9\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"7\",\"comment\":\"\"},{\"reps\":\"7\",\"comment\":\"\"}],\"latPulldown\":[{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"}],\"cableRow\":[{\"left\":\"10\",\"right\":\"10\",\"comment\":\"\"},{\"left\":\"10\",\"right\":\"10\",\"comment\":\"\"},{\"left\":\"10\",\"right\":\"10\",\"comment\":\"\"},{\"left\":\"10\",\"right\":\"10\",\"comment\":\"\"}]},\"totals\":{\"pullup\":31,\"latPulldown\":32,\"cableRow\":80},\"prFlags\":{\"pullup\":false,\"latPulldown\":false,\"cableRow\":false},\"updatedAt\":\"2026-07-13T14:25:02.690Z\"},{\"id\":\"back-1784453734539-1fac6e87a7faf8\",\"startedAt\":\"2026-07-19T09:35:34.539Z\",\"completedAt\":\"2026-07-19T10:28:31.400Z\",\"exercises\":{\"pullup\":[{\"reps\":\"10\",\"comment\":\"\"},{\"reps\":\"9\",\"comment\":\"\"},{\"reps\":\"8\",\"comment\":\"\"},{\"reps\":\"7\",\"comment\":\"\"}],\"latPulldown\":[{\"reps\":\"9\",\"comment\":\"\"},{\"reps\":\"9\",\"comment\":\"\"},{\"reps\":\"9\",\"comment\":\"\"},{\"reps\":\"9\",\"comment\":\"\"}],\"cableRow\":[{\"left\":\"11\",\"right\":\"11\",\"comment\":\"\"},{\"left\":\"11\",\"right\":\"11\",\"comment\":\"\"},{\"left\":\"10\",\"right\":\"10\",\"comment\":\"\"},{\"left\":\"10\",\"right\":\"10\",\"comment\":\"\"}]},\"totals\":{\"pullup\":34,\"latPulldown\":36,\"cableRow\":84},\"prFlags\":{\"pullup\":true,\"latPulldown\":true,\"cableRow\":true}}]",
